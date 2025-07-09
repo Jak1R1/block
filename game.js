@@ -74,7 +74,6 @@ const config = {
       particleTexture.refresh();
     },
     create() {
-      
       // Платформа
       this.paddle = this.physics.add.sprite(400, 550, 'paddle')
         .setImmovable(true)
@@ -126,9 +125,9 @@ this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
             x: block.x,
             y: block.y,
             quantity: 3,  // Меньше частиц
-            speed: 100,   // Меньше скорость
+            speed: 50,   // Меньше скорость
             scale: { start: 0.5, end: 0 },
-            lifespan: 10, // Короче жизнь
+            lifespan: 100, // Короче жизнь
             blendMode: 'ADD'
         });
         
@@ -226,7 +225,9 @@ this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
     }
   }
 };
-
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
 new Phaser.Game(config);
-
 
