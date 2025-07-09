@@ -15,7 +15,7 @@ const config = {
       ballCtx.beginPath();
       ballCtx.arc(16, 16, 16, 0, Math.PI * 2);
       ballCtx.fill();
-      
+
       // Блик
       ballCtx.fillStyle = 'rgba(255,255,255,0.4)';
       ballCtx.beginPath();
@@ -28,7 +28,7 @@ const config = {
       const paddleCtx = paddleTexture.getContext();
       paddleCtx.fillStyle = '#00B4D8';
       paddleCtx.fillRect(0, 0, 100, 20);
-      
+
       // Свечение
       paddleCtx.strokeStyle = '#90E0EF';
       paddleCtx.lineWidth = 3;
@@ -45,22 +45,22 @@ const config = {
       blockStyles.forEach((style, index) => {
         const blockTexture = this.textures.createCanvas(`block_${index}`, 70, 30);
         const ctx = blockTexture.getContext();
-        
+
         // Основной цвет
         ctx.fillStyle = style.fill;
         ctx.fillRect(0, 0, 70, 30);
-        
+
         // Эффект объема
         ctx.strokeStyle = style.stroke;
         ctx.lineWidth = 2;
         ctx.strokeRect(0, 0, 70, 30);
-        
+
         // Номер уровня
         ctx.fillStyle = '#FFFFFF';
         ctx.font = 'bold 14px Arial';
         ctx.textAlign = 'center';
         ctx.fillText(style.text, 35, 20);
-        
+
         blockTexture.refresh();
       });
 
@@ -74,6 +74,7 @@ const config = {
       particleTexture.refresh();
     },
     create() {
+      
       // Платформа
       this.paddle = this.physics.add.sprite(400, 550, 'paddle')
         .setImmovable(true)
@@ -108,7 +109,7 @@ this.physics.add.collider(this.ball, this.paddle, () => {
 this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
     const currentHealth = block.getData('health') - 1;
     block.setData('health', currentHealth);
-    
+
     // Быстрая анимация удара (почти незаметная)
     this.tweens.add({
         targets: block,
@@ -117,7 +118,7 @@ this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
         duration: 10,  // Укоротил длительность
         yoyo: true
     });
-    
+
     if (currentHealth <= 0) {
         // Минималистичный эффект разрушения
         const particles = this.add.particles('particle');
@@ -125,24 +126,26 @@ this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
             x: block.x,
             y: block.y,
             quantity: 3,  // Меньше частиц
+            speed: 100,   // Меньше скорость
             speed: 50,   // Меньше скорость
             scale: { start: 0.5, end: 0 },
+            lifespan: 10, // Короче жизнь
             lifespan: 100, // Короче жизнь
             blendMode: 'ADD'
         });
-        
+
         // Мгновенное исчезновение блока
         block.setVisible(false);
         block.body.enable = false;
-        
+
         // Удаление через короткое время (чтобы не мешало физике)
         this.time.delayedCall(50, () => {
             block.destroy();
         });
-        
+
         this.score += 10;
         this.scoreText.setText(`Score: ${this.score}`);
-        
+
         if (this.blocks.countActive() === 0) {
             this.nextLevel();
         }
@@ -164,7 +167,7 @@ this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
     hitBlock(block) {
       const health = block.getData('health') - 1;
       block.setData('health', health);
-      
+
       // Эффект удара
       this.tweens.add({
         targets: block,
@@ -185,11 +188,11 @@ this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
           quantity: 10,
           lifespan: 500
         });
-        
+
         block.destroy();
         this.score += 10;
         this.scoreText.setText(`Score: ${this.score}`);
-        
+
         // Проверка завершения уровня
         if (this.blocks.countActive() === 0) {
           this.nextLevel();
@@ -200,18 +203,18 @@ this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
     nextLevel() {
       // Пауза перед новым уровнем
       this.ball.setVelocity(0, 0);
-      
+
       this.time.delayedCall(1000, () => {
         // Возвращаем шарик в центр
         this.ball.setPosition(400, 300);
-        
+
         // Увеличиваем скорость с каждым уровнем
         const speed = 200 + (this.currentLevel * 50);
         this.ball.setVelocity(
           Phaser.Math.Between(-speed, speed),
           Phaser.Math.Between(-speed, -speed/2)
         );
-        
+
         // Генерация новых блоков
         for (let y = 0; y < 5; y++) {
           for (let x = 0; x < 10; x++) {
@@ -225,6 +228,7 @@ this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
     }
   }
 };
+
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
