@@ -74,9 +74,7 @@ const config = {
       particleTexture.refresh();
     },
     create() {
-      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        window.scrollTo(0, 1);
-      }
+      
       // Платформа
       this.paddle = this.physics.add.sprite(400, 550, 'paddle')
         .setImmovable(true)
@@ -230,3 +228,4 @@ this.physics.add.collider(this.ball, this.blocks, (ball, block) => {
 };
 
 new Phaser.Game(config);
+
