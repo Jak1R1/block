@@ -1,7 +1,7 @@
 const config = {
   type: Phaser.AUTO,
-  width: 600,
-  height: 400,
+  width: 800,
+  height: 600,
   physics: { default: 'arcade' },
   scene: {
     preload() {
@@ -74,6 +74,7 @@ const config = {
       particleTexture.refresh();
     },
     create() {
+      
       // Платформа
       this.paddle = this.physics.add.sprite(400, 550, 'paddle')
         .setImmovable(true)
