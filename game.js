@@ -230,4 +230,3 @@ function resizeCanvas() {
     canvas.height = window.innerHeight;
 }
 new Phaser.Game(config);
-
