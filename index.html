@@ -1,64 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Block Blast</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-            touch-action: manipulation; /* Улучшает сенсорный отклик */
-        }
-        #game-canvas {
-            display: block;
-            background: #111;
-        }
-        #controls {
-            position: fixed;
-            bottom: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .control-btn {
-            padding: 12px 20px;
-            font-size: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 10px;
-            color: white;
-        }
-    </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8">
+  <title>Block Blast</title>
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
 </head>
 <body>
-    <canvas id="game-canvas"></canvas>
-    <div id="controls">
-        <button class="control-btn btn-left">←</button>
-        <button class="control-btn btn-rotate">↻</button>
-        <button class="control-btn btn-right">→</button>
-    </div>
-    <script>
-        const canvas = document.getElementById('game');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            // Перерисуйте игру здесь
-        }
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        document.getElementById('close-btn').addEventListener('click', function() {
-            Telegram.WebApp.close();
-        });
-
-        // Ваша игровая логика...
-    </script>
+  <script src="game.js"></script>
 </body>
 </html>
