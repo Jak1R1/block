@@ -1,9 +1,9 @@
 body {
   margin: 0;
+  padding: 0;
   overflow: hidden;
-  background: #0f0f1a;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
