@@ -5,36 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Block Blast</title>
     <style>
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
             overflow: hidden;
-            background: #121212;
+            font-family: Arial, sans-serif;
+            touch-action: manipulation; /* Улучшает сенсорный отклик */
         }
-        #game {
-            width: 100%;
-            height: 100%;
+        #game-canvas {
             display: block;
+            background: #111;
         }
-        #close-btn {
+        #controls {
             position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 8px;
-            background: #ff5555;
-            color: white;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .control-btn {
+            padding: 12px 20px;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.2);
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            border-radius: 10px;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <canvas id="game"></canvas>
-    <button id="close-btn">Закрыть</button>
-
+    <canvas id="game-canvas"></canvas>
+    <div id="controls">
+        <button class="control-btn btn-left">←</button>
+        <button class="control-btn btn-rotate">↻</button>
+        <button class="control-btn btn-right">→</button>
+    </div>
     <script>
         const canvas = document.getElementById('game');
         const ctx = canvas.getContext('2d');
